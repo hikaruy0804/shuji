@@ -29,7 +29,7 @@ def find_largest_bbox(contours):
     # 整数にキャストする
     return (int(min_x), int(min_y), int(max_x - min_x), int(max_y - min_y))
 
-def crop_and_resize_character(image, new_size=(400, 400)):
+def crop_and_resize_character(image, new_size=(300, 300)):
     # PILのImageオブジェクトをNumPy配列に変換
     if isinstance(image, Image.Image):
         image = np.array(image)
@@ -103,7 +103,7 @@ if uploaded_file is not None:
     image = Image.open(BytesIO(uploaded_file.getvalue()))
 
     # 画像をリサイズしてファイルサイズを減らす
-    base_width = 500
+    base_width = 600
     w_percent = (base_width / float(image.size[0]))
     h_size = int((float(image.size[1]) * float(w_percent)))
     image = image.resize((base_width, h_size), Image.Resampling.LANCZOS)
