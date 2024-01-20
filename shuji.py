@@ -94,6 +94,9 @@ def add_text_to_image(image, text, font_path='玉ねぎ楷書激無料版v7改.t
 
     return combined_image
 
+# ファイルアップロード
+uploaded_file = st.file_uploader("画像をアップロード", type=["jpg", "jpeg", "png"])
+
 # ストリームリットアプリケーションのメイン部分
 if uploaded_file is not None:
     # PILを使用して画像を読み込む
