@@ -94,14 +94,23 @@ def add_text_to_image(image, text, font_path='玉ねぎ楷書激無料版v7改.t
 
     return combined_image
 
-
-# ファイルアップロード
-uploaded_file = st.file_uploader("画像をアップロード", type=["jpg", "jpeg", "png"])
-
 # ストリームリットアプリケーションのメイン部分
 if uploaded_file is not None:
     # PILを使用して画像を読み込む
     image = Image.open(BytesIO(uploaded_file.getvalue()))
+
+    # 画像をリサイズしてファイルサイズを減らす
+    # 例えば、幅を500ピクセルに設定（高さはアスペクト比を維持）
+    base_width = 500
+    w_percent = (base_width / float(image.size[0]))
+    h_size = int((float(image.size[1]) * float(w_percent)))
+    image = image.resize((base_width, h_size), Image.ANTIALIAS)
+
+    # 画像をJPEG形式に変換してさらにサイズを軽減
+    buffered = BytesIO()
+    image.save(buffered, format="JPEG", quality=85)
+    image = Image.open(buffered)
+    
     # EasyOCRリーダーの初期化
     reader = easyocr.Reader(['ja'])
 
