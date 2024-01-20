@@ -89,6 +89,18 @@ def add_text_to_image(image, text, font_path='玉ねぎ楷書激無料版v7改.t
     # テキストの描画
     draw.text((x, y), text, fill=(255, 0, 0, 110), font=font)
 
+        # 点線の補助線を描画
+    line_color = (0, 0, 0, 140)  # 黒色
+    dotted_line_space = 6  # 点線の間隔
+
+    # 水平線
+    for i in range(0, image_size[0], dotted_line_space * 2):
+        draw.line([(i, image_size[1] // 2), (i + dotted_line_space, image_size[1] // 2)], fill=line_color)
+
+    # 垂直線
+    for i in range(0, image_size[1], dotted_line_space * 2):
+        draw.line([(image_size[0] // 2, i), (image_size[0] // 2, i + dotted_line_space)], fill=line_color)
+
     # オリジナル画像の上にテキスト画像を重ねる
     combined_image = Image.alpha_composite(image.convert("RGBA"), text_image)
 
