@@ -151,9 +151,9 @@ if uploaded_file is not None:
         text = ""
         for result in results:
             text += result[1] + "\n"
-        st.write(text)
-        st.write('認識した漢字が違う場合は入力してください。正しければ空のままOK')
-        text_input = st.text_input('', '例：冷')
+        st.write('認識した漢字：　'+ text)
+        st.write('認識した漢字が違う場合は正しい漢字を入力してください。正しければ空のままOK')
+        text_input = st.text_input()
     
         if st.button('OK'):
             # ユーザーがテキストを入力した場合、そのテキストを使用
