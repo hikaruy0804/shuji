@@ -153,11 +153,11 @@ if uploaded_file is not None:
             text += result[1] + "\n"
         st.write(text)
         st.write('認識した漢字が違う場合は入力してください。正しければ空のままOK')
-        text_input = st.text_input('','例：冷')
-        
-        if not text_input and st.button('OK'):
-            def fun(image, text):
-                
-        elif st.button('OK'):
-            text = text_input
-            def fun(image, text):
+        text_input = st.text_input('', '例：冷')
+    
+        if st.button('OK'):
+            # ユーザーがテキストを入力した場合、そのテキストを使用
+            if text_input:
+                text = text_input
+            # ここで fun 関数を呼び出す
+            fun(image, text)
