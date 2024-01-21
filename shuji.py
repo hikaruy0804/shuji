@@ -106,6 +106,18 @@ def add_text_to_image(image, text, font_path='玉ねぎ楷書激無料版v7改.t
 
     return combined_image
 
+# アップロード後の最終処理
+def fun(image, text):
+    # トリミングとリサイズ
+    resized_image = crop_and_resize_character(image)  # PIL Imageオブジェクトを渡す
+    resized_image = Image.fromarray(resized_image)    # NumPy配列をPIL Imageに変換
+
+    # お手本テキストの追加
+    final_image = add_text_to_image(resized_image, text)
+
+    # 処理した画像を表示
+    st.image(final_image, caption='Processed Image', use_column_width=True)
+
 # ファイルアップロード
 uploaded_file = st.file_uploader("画像をアップロード", type=["jpg", "jpeg", "png"])
 
@@ -140,13 +152,12 @@ if uploaded_file is not None:
         for result in results:
             text += result[1] + "\n"
         st.write(text)
+        st.write('認識した漢字が違う場合は入力してください。正しければ空のままOK')
+        text_input = st.text_input('','例：冷')
         
-        # トリミングとリサイズ
-        resized_image = crop_and_resize_character(image)  # PIL Imageオブジェクトを渡す
-        resized_image = Image.fromarray(resized_image)    # NumPy配列をPIL Imageに変換
-
-        # お手本テキストの追加
-        final_image = add_text_to_image(resized_image, text)
-
-        # 処理した画像を表示
-        st.image(final_image, caption='Processed Image', use_column_width=True)
+        if not text_input and st.button('OK'):
+            def fun(image, text):
+                
+        elif st.button('OK'):
+            text = text_input
+            def fun(image, text):
